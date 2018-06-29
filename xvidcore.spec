@@ -1,6 +1,6 @@
 Name:           xvidcore
-Version:        1.3.4
-Release:        3%{?dist}
+Version:        1.3.5
+Release:        1%{?dist}
 Summary:        MPEG-4 Simple and Advanced Simple Profile codec
 License:        GPLv2+
 URL:            http://www.xvid.org/
@@ -76,6 +76,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libxvidcore.so
 
 %changelog
+* Fri Jun 29 2018 Simone Caronni <negativo17@gmail.com> - 1.3.5-1
+- Update to 1.3.5.
+
 * Fri Apr 22 2016 Simone Caronni <negativo17@gmail.com> - 1.3.4-3
 - Update SPEC file.
 - Trim changelog.
