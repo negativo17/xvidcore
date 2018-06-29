@@ -10,7 +10,6 @@ Source0:        http://downloads.xvid.org/downloads/%{name}-%{version}.tar.bz2
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
-BuildRequires:  perl
 
 %ifarch %{ix86} x86_64
 BuildRequires:  nasm >= 2.0
@@ -20,7 +19,7 @@ BuildRequires:  nasm >= 2.0
 The Xvid video codec implements MPEG-4 Simple Profile and Advanced Simple
 Profile standards. It permits compressing and decompressing digital video in
 order to reduce the required bandwidth of video data for transmission over
-computer networks or efficient storage on CDs or DVDs. Due to its unrivalled
+computer networks or efficient storage on CDs or DVDs. Due to its unrivaled
 quality Xvid has gained great popularity and is used in many other GPLed
 applications, like e.g. Transcode, MEncoder, MPlayer, Xine and many more.
 
@@ -33,6 +32,7 @@ This package contains header files, static library and API documentation for the
 Xvid video codec.
 
 %prep
+export RPM_LD_FLAGS="%{?__global_ldflags} -fPIC"
 %autosetup -n %{name}
 sed -i -e 's|644 $(BUILD_DIR)/$(SHARED_LIB) |755 $(BUILD_DIR)/$(SHARED_LIB) |g' \
     build/generic/Makefile
