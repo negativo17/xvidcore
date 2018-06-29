@@ -26,15 +26,14 @@ applications, like e.g. Transcode, MEncoder, MPlayer, Xine and many more.
 
 %package        devel
 Summary:        Development files for the Xvid video codec
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 This package contains header files, static library and API documentation for the
 Xvid video codec.
 
-
 %prep
-%setup -q -n %{name}
+%autosetup -n %{name}
 sed -i -e 's|644 $(BUILD_DIR)/$(SHARED_LIB) |755 $(BUILD_DIR)/$(SHARED_LIB) |g' \
     build/generic/Makefile
 
@@ -44,28 +43,20 @@ for file in AUTHORS ChangeLog; do
     mv $file.utf8 $file
 done
 
-# Yes, we want to see the build output.
-perl -pi -e 's/^\t@(?!echo\b)/\t/' build/generic/Makefile
-
-
 %build
 cd build/generic
 autoreconf -vif
 %configure --disable-static
-make %{?_smp_mflags} 
+%make_build
 cd -
-
 
 %install
 make -C build/generic install DESTDIR=%{buildroot}
 find %{buildroot} -name "*.a" -delete
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc README AUTHORS ChangeLog
 %{_libdir}/libxvidcore.so.*
@@ -78,6 +69,7 @@ find %{buildroot} -name "*.a" -delete
 %changelog
 * Fri Jun 29 2018 Simone Caronni <negativo17@gmail.com> - 1.3.5-1
 - Update to 1.3.5.
+- Clean up SPEC file.
 
 * Fri Apr 22 2016 Simone Caronni <negativo17@gmail.com> - 1.3.4-3
 - Update SPEC file.
