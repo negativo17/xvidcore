@@ -1,18 +1,18 @@
 Name:           xvidcore
-Version:        1.3.5
-Release:        2%{?dist}
+Version:        1.3.7
+Release:        1%{?dist}
 Summary:        MPEG-4 Simple and Advanced Simple Profile codec
 License:        GPLv2+
-URL:            http://www.xvid.org/
+URL:            https://labs.xvid.com/project/
 
-Source0:        http://downloads.xvid.org/downloads/%{name}-%{version}.tar.bz2
+Source0:        https://downloads.xvid.com/downloads/%{name}-%{version}.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  libtool
 
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 BuildRequires:  nasm >= 2.0
 %endif
 
@@ -52,7 +52,7 @@ autoreconf -vif
 cd -
 
 %install
-make -C build/generic install DESTDIR=%{buildroot}
+%make_install -C build/generic
 find %{buildroot} -name "*.a" -delete
 
 %ldconfig_scriptlets
@@ -68,6 +68,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libxvidcore.so
 
 %changelog
+* Sat May 23 2020 Simone Caronni <negativo17@gmail.com> - 1.3.7-1
+- Update to 1.3.7.
+
 * Thu Sep 20 2018 Simone Caronni <negativo17@gmail.com> - 1.3.5-2
 - Add GCC build requirement.
 
